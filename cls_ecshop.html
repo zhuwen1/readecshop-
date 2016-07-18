@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cls_ecshop.html源码阅读</title>
+</head>
+<body>
+	<h1>自定义ECS类</h1>
+	<table border="1" cellpadding="2" cellspacing="3"l>
+		<thead>
+			<tr>
+				<td>函数名称</td>
+				<td>接受参数</td>
+				<td>主要作用</td>
+				<td>返回结果</td>
+				<td>出处</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>ECS</td>
+				<td>$db_name $prefix</td>
+				<td>接受参数并且赋值给类的变量</td>
+				<td>无返回值</td>
+				<td>ecs类</td>
+			</tr>
+			<tr>
+				<td>table</td>
+				<td>$str</td>
+				<td>将表加上表前缀</td>
+				<td>反回处理后的表名</td>
+				<td>ecs类</td>
+			</tr>
+			<tr>
+				<td>compile_password</td>
+				<td>$pass</td>
+				<td>进行md5加密</td>
+				<td>返回加密后的结果</td>
+				<td>ecs类</td>
+			</tr>
+			<tr>
+				<td>http</td>
+				<td>无</td>
+				<td>通过一系列判断是否为http协议或者https协议</td>
+				<td>返回协议结果</td>
+				<td>ecs类</td>
+			</tr>
+			<tr>
+				<td>get_domain</td>
+				<td>无</td>
+				<td>通过测试获取协议和ip地址</td>
+				<td>返回协议和ip地址连接后的字符串</td>
+				<td>ecs类</td>
+			</tr>
+			<tr>
+				<td>image_dir data_dir</td>
+				<td>$sid</td>
+				<td>通过方式处理图片路径和数字路径</td>
+				<td>返回路径</td>
+				<td>ecs类</td>
+			</tr>
+			<tr>
+				<td>md5</td>
+				<td>密码</td>
+				<td>md5加密</td>
+				<td>返回加密后字符串</td>
+				<td>php内置函数</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
