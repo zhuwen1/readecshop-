@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>safety.php 阅读笔记</title>
+<style type="text/css">
+table{
+text-align: center;
+}
+</style>
+</head>
+<body>
+<h1>safety.php 阅读笔记</h1>
+<div id=”container”>
+<h2>一:php内置函数和关键字</h2>
+<table border="1" cellspacing="2" cellpadding="3">
+<thead>
+<tr>
+<td>函数名或者关键字</td>
+<td>参数</td>
+<td>描述</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>function_exists</td>
+<td>接受一个字符串</td>
+<td>判断是否为一个函数，如果是返回true，否则返回false</td>
+</tr>
+<tr>
+<td>preg_match</td>
+<td>两个字符串,其中一个是正则表达式,另外一个是被查找字符串,</td>
+<td>返回匹配次数,并且将匹配结果返回到match参数中</td>
+</tr>
+<tr>
+<td>array</td>
+<td>接受键值对</td>
+<td>声明一个数组，或者为索引数组或者关联数组</td>
+</tr>
+<tr>
+<td>and</td>
+<td>左右两边接受的是两个参数</td>
+<td><p>and 符号和&&存在差别,主要在优先级的差别,&&优先级别大于= 而and 小于 =</p></td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+<br>
+<h2>二:ecshop定义函数</h2>
+<table border="1" cellpadding="3" cellspacing="2">
+<thead>
+<tr>
+<td>函数名称</td>
+<td>接受参数</td>
+<td>作用</td>
+<td>返回结果</td>
+<td>来自文件</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filterData</td>
+<td>$data $type</td>
+<td>当data不存在的时候,短路函数filterArray</td>
+<td>过滤数据,也就是过滤data不存在的情况</td>
+<td>safety.php</td>
+</tr>
+<tr>
+<td>fliterArray</td>
+<td>&$data,$filterarr</td>
+<td>递归过滤每一个参数直到多维数组为止</td>
+<td>分为三个部分,参数属于数组1的时候查询,属于数组2删除,否则执行fliter函数</td>
+<td>safety.php</td>
+</tr>
+<tr>
+<td>fliter</td>
+<td>$data,$filterarr</td>
+<td>对内容进行分析,如果存在攻击隐患处理</td>	
+<td>如果合法,返回$data,否则结束函数并且报错</td>
+<td>safety.php</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+<br>
+<h2>三:相关原理性质讨论</h2>
+<h3>正则原理</h3>
+<p>
+正则表达式:Regular Expression则表达式通常被用来检索、替换那些符合某个模式的文本。在此处使用正则的原因是用于
+处理xss攻击，sql注入以及其他攻击方式的干扰，达到cms安全的结果
+</p>
+<h3>xss原理</h3>
+<p>
+xss全称cross site script，含义为跨站脚本攻击，通过恶意的js 通过url或者其他手段达到攻击网站的目的
+</p>
+
+<h3>sql注入原理</h3>
+<p>就是通过把SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串
+，最终达到欺骗服务器执行恶意的SQL命令。具体来说，它是利用现有应用程序，将（恶意）的SQL命令注入到后台数据库引擎执行的能力，它可以通过在Web表单中输入（恶意）SQL语句得到一个存在安全漏洞的网站上的数据库，而不是按照设计者意图去执行SQL语句</p>
+<br>
+<br>
+<br>
+<h2>四:代码分析</h2>
+<p>分析说明 将代码三段化.函数声明，变量声明 相关逻辑执行</p>
+<p>4.1 变量声明  $url_array 声明一个数组 为关联数组xss内容为字符串。实际内容为正则</p>
+<p>xss正则分析</p>
+<pre>
+	
+
+
+
+</pre>
+<p>sql正则分析</p>
+<pre>
+	
+
+
+
+
+</pre>
+<p>其他正则分析</p>
+<pre>
+	
+
+
+
+
+</pre>
+
+<p>函数声明，函数作用和声明见ecshop自定义函数分析</p>
+
+
+<p>相关逻辑执行</p>
+
+	<h6>测试是否存在参数$_SERVER['HTTP_REFERER']和$_SERVER['QUERY_STRING'],不存在就将变量设置为空数组，否则设置变量内容分别为$referer和$query_string</h6>
+	<p>执行函数filterData,测试是否存在xss攻击,执行参数为$query_string,$url_args</p>
+	<p>测试$_GET是否存在除了xss攻击外攻击</p>
+	<p>测试$_POST是否存在除了xss攻击外攻击</p>
+	<p>测试$_SERVER是否存在除了xss攻击外攻击</p>
+	<p>测试$_COOKIE是否存在除了xss攻击外攻击</p>
+	<p>测试$referer是否存在除了xss攻击外攻击</p>
+<h2>总结:safety.php 就是对ecshop整体进行判断的函数,判断是否存在xss，sql攻击，以及其他存在的攻击，同时对存在的内容进行分类</h2>
+</div>
+</body>
+</html>
